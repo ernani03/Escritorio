@@ -10,4 +10,4 @@ C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\
 C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.pdb
 C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.Clientes.resources
 C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.Pedidos.resources
-C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.csproj.AssemblyReference.cache
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.ListadoPedidos.resources

@@ -44,6 +44,9 @@ namespace Escritorio
             this.btnCargarProducto = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lblPrecio = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtTotal = new System.Windows.Forms.TextBox();
+            this.lblPedido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +67,7 @@ namespace Escritorio
             this.txtCantidad.Location = new System.Drawing.Point(116, 126);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(145, 24);
-            this.txtCantidad.TabIndex = 1;
+            this.txtCantidad.TabIndex = 2;
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // txtProducto
@@ -74,7 +77,7 @@ namespace Escritorio
             this.txtProducto.Location = new System.Drawing.Point(116, 74);
             this.txtProducto.Name = "txtProducto";
             this.txtProducto.Size = new System.Drawing.Size(145, 24);
-            this.txtProducto.TabIndex = 2;
+            this.txtProducto.TabIndex = 1;
             this.txtProducto.Validated += new System.EventHandler(this.textBox3_Validated);
             // 
             // lblCliente
@@ -134,37 +137,42 @@ namespace Escritorio
             // 
             // dgvDetalle
             // 
+            this.dgvDetalle.AllowUserToAddRows = false;
+            this.dgvDetalle.AllowUserToDeleteRows = false;
+            this.dgvDetalle.AllowUserToOrderColumns = true;
             this.dgvDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDetalle.Location = new System.Drawing.Point(12, 189);
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.RowTemplate.Height = 24;
             this.dgvDetalle.Size = new System.Drawing.Size(770, 220);
-            this.dgvDetalle.TabIndex = 9;
+            this.dgvDetalle.TabIndex = 5;
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(277, 428);
+            this.btnNuevo.Location = new System.Drawing.Point(277, 445);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(83, 32);
             this.btnNuevo.TabIndex = 10;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(388, 428);
+            this.btnGuardar.Location = new System.Drawing.Point(388, 445);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(83, 32);
             this.btnGuardar.TabIndex = 11;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnCargarProducto
             // 
             this.btnCargarProducto.Location = new System.Drawing.Point(416, 122);
             this.btnCargarProducto.Name = "btnCargarProducto";
             this.btnCargarProducto.Size = new System.Drawing.Size(128, 32);
-            this.btnCargarProducto.TabIndex = 12;
+            this.btnCargarProducto.TabIndex = 5;
             this.btnCargarProducto.Text = "Cargar Producto";
             this.btnCargarProducto.UseVisualStyleBackColor = true;
             this.btnCargarProducto.Click += new System.EventHandler(this.btnCargarProducto_Click);
@@ -174,9 +182,10 @@ namespace Escritorio
             this.button1.Location = new System.Drawing.Point(593, 122);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(124, 32);
-            this.button1.TabIndex = 13;
+            this.button1.TabIndex = 6;
             this.button1.Text = "Eliminar producto";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblPrecio
             // 
@@ -188,11 +197,42 @@ namespace Escritorio
             this.lblPrecio.Text = "lblPrecio";
             this.lblPrecio.Click += new System.EventHandler(this.lblPrecio_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(39, 421);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Total:";
+            // 
+            // txtTotal
+            // 
+            this.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTotal.Enabled = false;
+            this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotal.Location = new System.Drawing.Point(87, 418);
+            this.txtTotal.Name = "txtTotal";
+            this.txtTotal.Size = new System.Drawing.Size(100, 24);
+            this.txtTotal.TabIndex = 16;
+            // 
+            // lblPedido
+            // 
+            this.lblPedido.AutoSize = true;
+            this.lblPedido.Location = new System.Drawing.Point(549, 26);
+            this.lblPedido.Name = "lblPedido";
+            this.lblPedido.Size = new System.Drawing.Size(66, 16);
+            this.lblPedido.TabIndex = 18;
+            this.lblPedido.Text = "lblPedido";
+            // 
             // Pedidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 472);
+            this.ClientSize = new System.Drawing.Size(794, 487);
+            this.Controls.Add(this.lblPedido);
+            this.Controls.Add(this.txtTotal);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCargarProducto);
@@ -209,6 +249,7 @@ namespace Escritorio
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.txtCliente);
             this.Name = "Pedidos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pedidos";
             this.Load += new System.EventHandler(this.Pedidos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).EndInit();
@@ -234,5 +275,8 @@ namespace Escritorio
         private System.Windows.Forms.Button btnCargarProducto;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtTotal;
+        private System.Windows.Forms.Label lblPedido;
     }
 }

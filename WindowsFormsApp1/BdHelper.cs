@@ -290,7 +290,7 @@ namespace Escritorio
         public DataSet GetProductoPorCodigo(string codigo)
         {
 
-            string query = "SELECT ID, Codigo, Descripcion, Precio, UnidadMedida FROM Productos where codigo = @Codigo";
+            string query = "SELECT ID, Codigo, Descripcion, Precio, UnidadMedida FROM Productos WHERE Codigo = @Codigo";
 
             DataSet dsProductos = new DataSet();
 
@@ -314,10 +314,9 @@ namespace Escritorio
             return dsProductos;
         }
 
-        public int InsertPedido(string codigo, string descripcion, string unidadMedida, string precio)
+        public int InsertarPedidoCab(int idCliente, int total)
         {
-
-            string sp = "sp_Clientes_Insertar";
+            string sp = "sp_Pedidos_Insertar";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -325,26 +324,162 @@ namespace Escritorio
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add("@Codigo", SqlDbType.VarChar, 30).Value = codigo;
-                    command.Parameters.Add("@Descripcion", SqlDbType.VarChar, 30).Value = descripcion;
-                    command.Parameters.Add("@UnidadMedida", SqlDbType.VarChar, 10).Value = unidadMedida;
-                    command.Parameters.Add("@Precio", SqlDbType.Int).Value = precio;
+                    command.Parameters.Add("@id_cliente", SqlDbType.Int).Value = idCliente;
+                    command.Parameters.Add("@total", SqlDbType.Int).Value = total;
 
                     try
                     {
                         connection.Open();
 
-                        int idGenerado = Convert.ToInt32(command.ExecuteScalar());
+                        int idPedidoGenerado = Convert.ToInt32(command.ExecuteScalar());
 
-                        return idGenerado;
+                        return idPedidoGenerado;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Error al insertar producto: " + ex.Message);
+                        Console.WriteLine("Error al insertar el pedido: " + ex.Message);
                         throw;
                     }
                 }
             }
+        }
+
+        public void InsertarPedidoDetalle(int idPedido, DataTable dtDetalle)
+        {
+            string sp = "sp_PedidosDetalle_Insertar";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(sp, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+
+                    foreach (DataRow fila in dtDetalle.Rows)
+                    {
+                        command.Parameters.Clear();
+
+                        command.Parameters.Add("@id_pedido", SqlDbType.Int).Value = idPedido;
+                        command.Parameters.Add("@id_producto", SqlDbType.Int).Value = Convert.ToInt32(fila["IDProducto"]);
+                        command.Parameters.Add("@cant", SqlDbType.Int).Value = Convert.ToInt32(fila["Cantidad"]);
+
+                        decimal total = Convert.ToDecimal(fila["Total"]);
+                        int cantidad = Convert.ToInt32(fila["Cantidad"]);
+                        command.Parameters.Add("@precio", SqlDbType.Int).Value = fila["Total"];//Convert.ToInt32(total / cantidad);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public DataSet ListarPedidos()
+        {
+            string sp = "sp_Pedidos_Listar";
+            DataSet ds = new DataSet();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(sp, connection))
+                {
+                    adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+                    try
+                    {
+                        adapter.Fill(ds, "Pedidos");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al listar pedidos: " + ex.Message);
+                        throw;
+                    }
+                }
+            }
+            return ds;
+        }
+
+        public DataTable GetPedidoPorId(int id)
+        {
+            string query = "SELECT ID, id_cliente, total FROM Pedidos WHERE ID = @ID";
+
+            DataTable dtPedidos = new DataTable("Pedidos");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+                {
+                    adapter.SelectCommand.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+
+                    try
+                    {
+                        adapter.Fill(dtPedidos);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al obtener el pedido: " + ex.Message);
+                        throw;
+                    }
+                }
+            }
+
+            return dtPedidos;
+        }
+
+        public DataTable GetClientePorId(int id)
+        {
+            string query = "SELECT ID, Nombre, Apellido, TipoDocumento, Documento FROM Clientes WHERE ID = @ID";
+
+            DataTable dtPedidos = new DataTable("Clientes");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+                {
+                    adapter.SelectCommand.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+
+                    try
+                    {
+                        adapter.Fill(dtPedidos);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al obtener el cliente: " + ex.Message);
+                        throw;
+                    }
+                }
+            }
+
+            return dtPedidos;
+        }
+
+        public DataTable GetPedidoDetallePorId(int id)
+        {
+            string query = "SELECT A.ID_PRODUCTO IDProducto, b.Codigo, b.Descripcion, A.CANT Cantidad, A.PRECIO, a.cant * a.precio Total FROM Pedidos_detalle A " +
+                "INNER JOIN PRODUCTOS B ON A.id_producto = B.ID " +
+                "INNER JOIN PEDIDOS C ON A.id_pedido = C.ID WHERE A.ID = @ID;";
+
+            DataTable dtPedidos = new DataTable("PedidosDetalle");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+                {
+                    adapter.SelectCommand.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+
+                    try
+                    {
+                        adapter.Fill(dtPedidos);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al obtener el detalle del pedido: " + ex.Message);
+                        throw;
+                    }
+                }
+            }
+
+            return dtPedidos;
         }
     }
 }
