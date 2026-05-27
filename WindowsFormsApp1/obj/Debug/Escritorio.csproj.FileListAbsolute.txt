@@ -1,0 +1,13 @@
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Escritorio.exe.config
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Escritorio.exe
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Escritorio.pdb
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.Productos.resources
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.Properties.Resources.resources
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.csproj.GenerateResource.cache
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.csproj.CoreCompileInputs.cache
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.exe
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.pdb
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.Clientes.resources
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.Pedidos.resources
+C:\Users\ECOP-MARCELOP\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Escritorio.csproj.AssemblyReference.cache
